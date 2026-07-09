@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!doctype html>
 <html lang="en">
   <head>
@@ -317,3 +318,222 @@
     </script>
   </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Routine Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col justify-between">
+
+  <!-- App Header -->
+  <header class="bg-white border-b border-gray-100 py-4 px-6 text-center shadow-sm">
+    <h1 class="text-xl font-bold tracking-wide text-gray-900">M / W / F Strength Log</h1>
+    <div class="flex justify-center gap-4 mt-2 text-xs font-semibold text-gray-500">
+      <span id="day-mon" class="px-2 py-1 rounded bg-gray-100">MON</span>
+      <span id="day-wed" class="px-2 py-1 rounded bg-gray-100">WED</span>
+      <span id="day-fri" class="px-2 py-1 rounded bg-gray-100">FRI</span>
+    </div>
+  </header>
+
+  <!-- Main Exercise Card Container -->
+  <main class="flex-1 flex items-center justify-center p-4">
+    <div id="exercise-card" class="w-full max-w-md bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden flex flex-col justify-between min-h-[500px]">
+      
+      <!-- Top Visual Area (GIF Slot) -->
+      <div class="w-full h-52 bg-gray-100 flex items-center justify-center relative overflow-hidden">
+        <img id="exercise-gif" src="" alt="Exercise Demonstration" class="w-full h-full object-cover hidden">
+        <div id="gif-placeholder" class="text-gray-400 text-sm flex flex-col items-center gap-2">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+          <span>GIF/Animation Slot</span>
+        </div>
+        <span id="exercise-index" class="absolute top-3 right-3 bg-black/60 text-white text-xs px-2 py-1 rounded-full font-bold">1 / 8</span>
+      </div>
+
+      <!-- Info & Cues -->
+      <div class="p-6 flex-1 flex flex-col justify-between">
+        <div>
+          <h2 id="exercise-name" class="text-2xl font-extrabold text-gray-900 mb-1">Exercise Name</h2>
+          <p id="exercise-eq" class="text-sm font-medium text-indigo-600 mb-4">Equipment</p>
+          
+          <!-- Breathing Cue Box -->
+          <div class="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4 mb-6">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-800 mb-1">Breathing & Form Guide</h3>
+            <p id="exercise-cue" class="text-sm text-gray-700 leading-relaxed">Breathing instructions go here...</p>
+          </div>
+        </div>
+
+        <!-- Checkboxes for Sets -->
+        <div class="space-y-3">
+          <h3 id="sets-header" class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">Today's Sets (3 x 10-12)</h3>
+          <div class="grid grid-cols-3 gap-3">
+            <button onclick="toggleSet(0)" id="set-0" class="py-3 rounded-xl border-2 border-gray-200 font-bold transition-all flex flex-col items-center justify-center gap-1 bg-white text-gray-500">
+              <span class="text-xs font-medium">SET 1</span>
+              <span class="text-lg" id="check-0">⬜</span>
+            </button>
+            <button onclick="toggleSet(1)" id="set-1" class="py-3 rounded-xl border-2 border-gray-200 font-bold transition-all flex flex-col items-center justify-center gap-1 bg-white text-gray-500">
+              <span class="text-xs font-medium">SET 2</span>
+              <span class="text-lg" id="check-1">⬜</span>
+            </button>
+            <button onclick="toggleSet(2)" id="set-2" class="py-3 rounded-xl border-2 border-gray-200 font-bold transition-all flex flex-col items-center justify-center gap-1 bg-white text-gray-500">
+              <span class="text-xs font-medium">SET 3</span>
+              <span class="text-lg" id="check-2">⬜</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Bottom Navigation Feet -->
+  <footer class="p-4 max-w-md w-full mx-auto flex gap-4">
+    <button onclick="prevExercise()" class="flex-1 py-4 bg-gray-200 hover:bg-gray-300 font-bold rounded-xl transition-colors text-gray-700 text-center">
+      Previous
+    </button>
+    <button onclick="nextExercise()" class="flex-1 py-4 bg-indigo-600 hover:bg-indigo-700 font-bold rounded-xl transition-colors text-white text-center shadow-md shadow-indigo-200">
+      Next Move
+    </button>
+  </footer>
+
+  <!-- App Logic -->
+  <script>
+    const exercises = [
+      {
+        name: "Incline Dumbbell Press",
+        equipment: "5 lb Weights + Adjustable Bench",
+        cue: "Exhale sharply as you push the dumbbells up away from your chest. Inhale slowly as you control them back down.",
+        reps: "3 x 10-12 reps",
+        gif: "" // Add your local path or web URL here later
+      },
+      {
+        name: "Band Bicep Curls",
+        equipment: "Medium Resistance Band Cord",
+        cue: "Exhale as you squeeze your biceps and curl your hands upward. Inhale as you fully extend your arms back to your sides.",
+        reps: "3 x 10-12 reps",
+        gif: ""
+      },
+      {
+        name: "Seated Tricep Extension",
+        equipment: "5 lb Weight + Bench",
+        cue: "Exhale as you drive the weight overhead, locking out your elbows safely. Inhale as you dip the weight back down behind your neck.",
+        reps: "3 x 10-12 reps",
+        gif: ""
+      },
+      {
+        name: "Goblet Squat",
+        equipment: "5 lb Weight",
+        cue: "Inhale deeply as you sink down into the squat like sitting in a chair. Exhale forcefully as you drive through your heels to stand back up straight.",
+        reps: "3 x 10-12 reps",
+        gif: ""
+      },
+      {
+        name: "Band Lateral Walks",
+        equipment: "Light or Medium Band Cord",
+        cue: "Breathe continuously and smoothly. Maintain a soft bend in your knees and keep your core zipped up tight as you step out wide.",
+        reps: "3 x 10 steps each way",
+        gif: ""
+      },
+      {
+        name: "Dumbbell Glute Bridge",
+        equipment: "5 lb Weight",
+        cue: "Exhale as you drive your hips straight up toward the ceiling, squeezing your glutes tightly at the apex. Inhale as you touch your back down to the floor.",
+        reps: "3 x 12 reps",
+        gif: ""
+      },
+      {
+        name: "Seated Band Rotations",
+        equipment: "Anchored Resistance Band Cord",
+        cue: "Exhale as you rotate your torso away from the anchor point, using your waist muscles. Inhale as you control the rotation back to center.",
+        reps: "3 x 12 reps each side",
+        gif: ""
+      },
+      {
+        name: "Incline Bench Plank",
+        equipment: "Bench Frame",
+        cue: "Maintain steady, rhythmic breathing through your nose. Do not hold your breath. Keep your hips level and draw your belly button tightly toward your spine.",
+        reps: "3 x 20-30 sec holds",
+        gif: ""
+      }
+    ];
+
+    let currentIndex = 0;
+    // Simple state mapping to track checkmarks per exercise
+    let state = Array(exercises.length).fill().map(() => [false, false, false]);
+
+    // Detect Current Day to Highlight Header
+    const days = ['day-sun', 'day-mon', 'day-tue', 'day-wed', 'day-thu', 'day-fri', 'day-sat'];
+    const currentDayId = days[new Date().getDay()];
+    if (document.getElementById(currentDayId)) {
+      document.getElementById(currentDayId).classList.remove('bg-gray-100', 'text-gray-500');
+      document.getElementById(currentDayId).classList.add('bg-indigo-600', 'text-white');
+    }
+
+    function renderExercise() {
+      const ex = exercises[currentIndex];
+      document.getElementById("exercise-name").innerText = ex.name;
+      document.getElementById("exercise-eq").innerText = ex.equipment;
+      document.getElementById("exercise-cue").innerText = ex.cue;
+      document.getElementById("sets-header").innerText = `Today's Sets (${ex.reps})`;
+      document.getElementById("exercise-index").innerText = `${currentIndex + 1} / ${exercises.length}`;
+
+      const imgElement = document.getElementById("exercise-gif");
+      const placeholder = document.getElementById("gif-placeholder");
+      
+      if (ex.gif) {
+        imgElement.src = ex.gif;
+        imgElement.classList.remove('hidden');
+        placeholder.classList.add('hidden');
+      } else {
+        imgElement.classList.add('hidden');
+        placeholder.classList.remove('hidden');
+      }
+
+      // Restore checkbox states
+      for(let i=0; i<3; i++) {
+        updateSetUI(i, state[currentIndex][i]);
+      }
+    }
+
+    function toggleSet(setIndex) {
+      state[currentIndex][setIndex] = !state[currentIndex][setIndex];
+      updateSetUI(setIndex, state[currentIndex][setIndex]);
+    }
+
+    function updateSetUI(index, isDone) {
+      const btn = document.getElementById(`set-${index}`);
+      const check = document.getElementById(`check-${index}`);
+      if (isDone) {
+        btn.classList.remove('border-gray-200', 'bg-white', 'text-gray-500');
+        btn.classList.add('border-green-500', 'bg-green-50', 'text-green-700');
+        check.innerText = "✅";
+      } else {
+        btn.classList.remove('border-green-500', 'bg-green-50', 'text-green-700');
+        btn.classList.add('border-gray-200', 'bg-white', 'text-gray-500');
+        check.innerText = "⬜";
+      }
+    }
+
+    function nextExercise() {
+      if (currentIndex < exercises.length - 1) {
+        currentIndex++;
+        renderExercise();
+      }
+    }
+
+    function prevExercise() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderExercise();
+      }
+    }
+
+    // Initial load
+    renderExercise();
+  </script>
+</body>
+</html>
+>>>>>>> e0622b5dccb865506fb752ca5ac2358abcda6a4e
