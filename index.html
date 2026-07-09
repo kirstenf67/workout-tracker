@@ -16,12 +16,26 @@
       <h1 class="text-2xl font-bold tracking-wide text-gray-900">
         Workout Tracker
       </h1>
-      <div
-        class="flex justify-center gap-4 mt-2 text-base font-semibold text-gray-500"
-      >
-        <span id="day-mon" class="px-2 py-1 rounded bg-gray-100">MON</span>
-        <span id="day-wed" class="px-2 py-1 rounded bg-gray-100">WED</span>
-        <span id="day-fri" class="px-2 py-1 rounded bg-gray-100">FRI</span>
+      <!-- Day Selection Tracker -->
+      <div class="flex justify-center space-x-4 my-6">
+        <button
+          onclick="toggleDay(this)"
+          class="day-tracker-btn px-5 py-2.5 text-lg rounded-full bg-blue-600 text-white font-semibold shadow-md transition-all"
+        >
+          MON
+        </button>
+        <button
+          onclick="toggleDay(this)"
+          class="day-tracker-btn px-5 py-2.5 text-lg rounded-full bg-gray-100 text-gray-700 font-semibold transition-all"
+        >
+          WED
+        </button>
+        <button
+          onclick="toggleDay(this)"
+          class="day-tracker-btn px-5 py-2.5 text-lg rounded-full bg-gray-100 text-gray-700 font-semibold transition-all"
+        >
+          FRI
+        </button>
       </div>
     </header>
 
@@ -294,6 +308,18 @@
 
       // Initial load
       renderExercise();
+
+      function toggleDay(clickedButton) {
+        // Reset all buttons back to the muted gray style
+        document.querySelectorAll(".day-tracker-btn").forEach((btn) => {
+          btn.classList.remove("bg-blue-600", "text-white", "shadow-md");
+          btn.classList.add("bg-gray-100", "text-gray-700");
+        });
+
+        // Highlight the day you just tapped with a distinct blue background
+        clickedButton.classList.remove("bg-gray-100", "text-gray-700");
+        clickedButton.classList.add("bg-blue-600", "text-white", "shadow-md");
+      }
     </script>
   </body>
 </html>
